@@ -1,0 +1,31 @@
+{
+  "name": "ort-tp2-grupo7",
+  "version": "1.0.0",
+  "description": "Trabajo Practico - Taller de Programacion 2 - ORT",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "npx nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shiberus/ORT-TP2-Grupo7.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shiberus/ORT-TP2-Grupo7/issues"
+  },
+  "homepage": "https://github.com/shiberus/ORT-TP2-Grupo7#readme",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.14.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
