@@ -9,14 +9,13 @@ export const verificarToken = (req, res, next) => {
 
   const token = authHeader.split(" ")[1];
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, usuario) => {
-    if (err) {
-      return res.status(403).json({
-        error: "Token invalido o expirado",
-      });
-    }
+  try {
+    const decodificado = jwt.verify(token, process.env.JWT_SECRET);
 
-    req.usuario = usuario;
+    req.usuario = decodificado;
+
     next();
-  });
+  } catch (error) {
+    return res.status(403).json({ error: "Token invalido o expirado" });
+  }
 };
