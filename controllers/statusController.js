@@ -1,4 +1,4 @@
-import { getDbState } from "../services/statusService.js";
+import { getDbState } from "../utils/statusService.js";
 
 export const getStatus = (req, res) => {
   res.status(200).json({
