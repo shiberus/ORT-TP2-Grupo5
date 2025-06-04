@@ -13,7 +13,7 @@ export const getTrabajos = async ( req, res ) => {
 
 export const createTrabajo = async (req,res) => {
 
-    const { categoria, estado, descripcion, costo, idEquipo, idEmpleado } = req.body;
+    const { categoria, estado, descripcion, costo, idEquipo, idEmpleado, idComponente } = req.body;
     
     if(!categoria || !estado || !costo || !idEquipo){
         return res.status(400).json({error: "Faltan datos"})
@@ -28,6 +28,7 @@ export const createTrabajo = async (req,res) => {
 
     if (descripcion) trabajo.descripcion = descripcion;
     if (idEmpleado) trabajo.idEmpleado = idEmpleado;
+    if (idComponente) trabajo.idComponente = idComponente;
 
     try {
         const nuevoTrabajo = await Trabajo.create(trabajo);
