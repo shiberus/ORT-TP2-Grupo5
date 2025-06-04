@@ -5,10 +5,6 @@ export const crearComprobante = async (idCliente, monto, idComponente, idTrabajo
     try {
         const comprobante = {
             idCliente,
-            monto,
-            idComponente,
-            idTrabajo,
-            idEmpleado
         };
 
         const nuevoComprobante = await Comprobante.create(comprobante).catch(() => {

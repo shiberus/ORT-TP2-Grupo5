@@ -1,4 +1,4 @@
-import Trabajo from '../models/Trabajo'
+import Trabajo from '../models/Trabajo.js'
 
 export const getTrabajos = async ( req, res ) => {
 
