@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
+import { CATEGORIAS_TRABAJO, ESTADOS_TRABAJO } from "../constants/trabajosEnum";
 
 const trabajoSchema = mongoose.Schema({
-    categoria: { type: String, enum: ["hardware", "software", "mantenimiento", "diagnóstico"], required: true },
-    estado: { type: String, enum: ["pendiente", "esperando repuesto", "en proceso", "finalizado"], required: true },
+    categoria: { type: String, enum: CATEGORIAS_TRABAJO, required: true },
+    estado: { type: String, enum: ESTADOS_TRABAJO, required: true },
     descripcion: { type: String },
     costo: { type: Number, required: true },
     idEquipo: { type: mongoose.Schema.Types.ObjectId, ref: "Equipo", required: true },
     idEmpleado: { type: mongoose.Schema.Types.ObjectId, ref: "Empleado" }, 
+    idComponente: {type: mongoose.Schema.Types.ObjectId, ref: "Componente" }
     }, { timestamps: true });
 
 export default mongoose.model("Trabajo", trabajoSchema)
