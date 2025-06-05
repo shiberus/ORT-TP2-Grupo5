@@ -1,13 +1,16 @@
 import express from 'express'
-import { getTrabajos, getTrabajoById, createTrabajo, deleteTrabajo,updateTrabajo } from '../controllers/trabajoController.js'
+import { verificarToken } from "../middlewares/authMiddleware.js";
+import { GetTrabajos, GetTrabajoById, CreateTrabajo, EliminarTrabajo ,ActualizarTrabajo } from '../controllers/trabajoController.js'
 
 
 const router = express.Router()
 
-router.get('/', getTrabajos)
-router.post('/', createTrabajo)
-router.get('/:id',getTrabajoById)
-router.put("/:id", updateTrabajo);
-router.delete("/:id", deleteTrabajo); 
+router.use(verificarToken);
+
+router.get('/', GetTrabajos)
+router.post('/', CreateTrabajo)
+router.get('/:id',GetTrabajoById)
+router.put("/:id", ActualizarTrabajo);
+router.delete("/:id", EliminarTrabajo); 
 
 export default router
