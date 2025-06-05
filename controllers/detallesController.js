@@ -1,41 +1,37 @@
 import * as detalleSvc from "../utils/DetalleService.js";
 
 export const GetDetalles = async (req, res) => {
-    const detalles = await detalleSvc.getDetalles();
-    return res.json(detalles);
+  const detalles = await detalleSvc.getDetalles();
+  return res.json(detalles);
 };
 
 export const GetDetalleById = async (req, res, next) => {
-    const { id } = req.params;
-    
-    try {
-        const detalle = await detalleSvc.getDetalleById(id);
-        return res.json(detalle);
-    } catch (error) {
-        return next(error);
-    }
+  const { id } = req.params;
+
+  try {
+    const detalle = await detalleSvc.getDetalleById(id);
+    return res.json(detalle);
+  } catch (error) {
+    return next(error);
+  }
 };
 
 export const CrearDetalle = async (req, res, next) => {
-    if (
-        !req.body ||
-        !req.body.idComprobante ||
-        !req.body.idTrabajo
-    ) {
-        return res
-            .status(400)
-            .json({ error: "Faltan datos (idComprobante, idTrabajo)" });
-    }
+  if (!req.body || !req.body.idComprobante || !req.body.idTrabajo) {
+    return res
+      .status(400)
+      .json({ error: "Faltan datos (idComprobante, idTrabajo)" });
+  }
 
-    const { idComprobante, idTrabajo } = req.body;
+  const { idComprobante, idTrabajo } = req.body;
 
-    try {
-        const nuevoDetalle = await detalleSvc.crearDetalle(
-            idComprobante,
-            idTrabajo,
-        );
-        return res.status(201).json(nuevoDetalle);
-    } catch (error) {
-        return next(error);
-    }
-}; 
+  try {
+    const nuevoDetalle = await detalleSvc.crearDetalle(
+      idComprobante,
+      idTrabajo
+    );
+    return res.status(201).json(nuevoDetalle);
+  } catch (error) {
+    return next(error);
+  }
+};
