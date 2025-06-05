@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { CATEGORIAS_TRABAJO, ESTADOS_TRABAJO } from "../constants/trabajosEnum";
+import { CATEGORIAS_TRABAJO, ESTADOS_TRABAJO } from "../constants/trabajosEnum.js";
 
 const trabajoSchema = mongoose.Schema({
     categoria: { type: String, enum: CATEGORIAS_TRABAJO, required: true },
