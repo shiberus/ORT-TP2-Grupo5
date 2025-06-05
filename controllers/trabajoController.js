@@ -1,4 +1,3 @@
-// controllers/trabajoController.js
 import * as trabajoSvc from "../utils/TrabajoService.js";
 
 export const GetTrabajos = async (req, res, next) => {
