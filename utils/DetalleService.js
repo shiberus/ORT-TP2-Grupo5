@@ -55,3 +55,48 @@ export const getDetalleById = async (idDetalle) => {
 
   return comprobante;
 };
+
+export const getDetalleByIdCabecera = async (idComprobanteCabecera) => {
+  const comprobantesDetalle = await ComprobanteDetalle.find({
+    idComprobante: idComprobanteCabecera
+  }).catch((error) => {
+    console.error("Error: ", error);
+    throw new CustomError("Error al obtener los detalles del comprobante", 500)});
+
+  if(comprobantesDetalle.length === 0){
+        throw new CustomError('No se encontraron detalles en el comprobante', 404);
+  }
+
+  return comprobantesDetalle;
+};
+
+export const getDetalleWithTrabajoByIdCabecera = async (idComprobanteCabecera) => {
+  const comprobantesDetalle = await ComprobanteDetalle.find({
+      idComprobante: idComprobanteCabecera
+  })
+  .populate('idTrabajo')
+  .catch((error) => {
+      console.error("Error: ", error);
+      throw new CustomError("Error al obtener los detalles del comprobante con información de trabajo", 500);
+  });
+
+  if(comprobantesDetalle.length === 0){
+      throw new CustomError('No se encontraron detalles en el comprobante', 404);
+  }
+
+  return comprobantesDetalle;
+};
+
+export const updateDetalle = async (idDetalle, updateData) => {
+    const detalleActualizado = await ComprobanteDetalle.findByIdAndUpdate(
+        idDetalle,
+        updateData,
+        { new: true, runValidators: true }
+    );
+
+    if (!detalleActualizado) {
+        throw new CustomError("Detalle no encontrado", 404);
+    }
+
+    return detalleActualizado;
+};
