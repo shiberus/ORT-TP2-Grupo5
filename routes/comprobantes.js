@@ -8,9 +8,9 @@ import {
     GetComprobanteById 
 } from "../controllers/comprobantesController.js";
 
+router.get("/:id", GetComprobanteById);
 router.use(verificarToken);
 router.get("/", GetComprobantes);
-router.get("/:id", GetComprobanteById);
 router.post("/", CrearComprobante);
 
 export default router; 

@@ -5,10 +5,10 @@ import { GetTrabajos, GetTrabajoById, CreateTrabajo, EliminarTrabajo ,Actualizar
 
 const router = express.Router()
 
-router.get('/:id',GetTrabajoById)
 
 router.use(verificarToken);
 
+router.get('/:id',GetTrabajoById)
 router.get('/', GetTrabajos)
 router.post('/', CreateTrabajo)
 router.put("/:id", ActualizarTrabajo);
