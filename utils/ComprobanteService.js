@@ -1,7 +1,7 @@
 import Comprobante from "../models/Comprobante.js";
 import CustomError from "./CustomError.js";
 
-export const crearComprobante = async (idCliente, monto, idComponente, idTrabajo, idEmpleado) => {
+export const crearComprobante = async (idCliente) => {
     try {
         const comprobante = {
             idCliente,

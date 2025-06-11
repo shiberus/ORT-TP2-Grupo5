@@ -3,10 +3,9 @@ const router = express.Router();
 import { verificarToken } from "../middlewares/authMiddleware.js";
 
 import { 
-    CrearDetalle, 
     GetDetalles, 
     GetDetalleById,
-    CrearEquipo,
+    CrearDetalle
 } from "../controllers/detallesController.js";
 
 router.use(verificarToken);

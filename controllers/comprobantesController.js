@@ -19,26 +19,18 @@ export const GetComprobanteById = async (req, res, next) => {
 export const CrearComprobante = async (req, res, next) => {
     if (
         !req.body ||
-        !req.body.idCliente ||
-        !req.body.monto ||
-        !req.body.idComponente ||
-        !req.body.idTrabajo ||
-        !req.body.idEmpleado
+        !req.body.idCliente
     ) {
         return res
             .status(400)
-            .json({ error: "Faltan datos (idCliente, monto, idComponente, idTrabajo, idEmpleado)" });
+            .json({ error: "Faltan datos (idCliente)" });
     }
 
-    const { idCliente, monto, idComponente, idTrabajo, idEmpleado } = req.body;
+    const { idCliente } = req.body;
 
     try {
         const nuevoComprobante = await comprobanteSvc.crearComprobante(
-            idCliente,
-            monto,
-            idComponente,
-            idTrabajo,
-            idEmpleado
+            idCliente
         );
         return res.status(201).json(nuevoComprobante);
     } catch (error) {
