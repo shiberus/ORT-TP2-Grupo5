@@ -5,11 +5,12 @@ import { GetTrabajos, GetTrabajoById, CreateTrabajo, EliminarTrabajo ,Actualizar
 
 const router = express.Router()
 
+router.get('/:id',GetTrabajoById)
+
 router.use(verificarToken);
 
 router.get('/', GetTrabajos)
 router.post('/', CreateTrabajo)
-router.get('/:id',GetTrabajoById)
 router.put("/:id", ActualizarTrabajo);
 router.delete("/:id", EliminarTrabajo); 
 

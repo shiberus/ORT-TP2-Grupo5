@@ -1,6 +1,7 @@
 // utils/trabajoService.js
 import Trabajo from "../models/Trabajo.js";
 import CustomError from "./CustomError.js";
+import { estados } from "../constants/trabajosEnum.js";
 
 export const getTrabajos = async () => {
     return await Trabajo.find();
@@ -12,14 +13,14 @@ export const getTrabajos = async () => {
     return trabajo;
 };
 
-export const createTrabajo = async ({ categoria, estado, descripcion, costo, idEquipo, idEmpleado, idComponente }) => {
-    if (!categoria || !estado || !costo || !idEquipo) {
+export const createTrabajo = async ({ categoria, descripcion, costo, idEquipo, idEmpleado, idComponente }) => {
+    if (!categoria || !costo || !idEquipo) {
         throw new CustomError("Faltan datos obligatorios", 400);
     }
 
     const trabajoData = {
         categoria,
-        estado,
+        estado: estados.pendiente,
         costo,
         idEquipo,
     };
