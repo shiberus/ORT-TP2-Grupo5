@@ -17,24 +17,31 @@ export const GetDetalleById = async (req, res, next) => {
 };
 
 export const CrearDetalle = async (req, res, next) => {
-  if (!req.body || !req.body.idComprobante || !req.body.idTrabajo) {
-    return res
-      .status(400)
-      .json({ error: "Faltan datos (idComprobante, idTrabajo)" });
-  }
+    if (!req.body || !req.body.idComprobante || !req.body.idTrabajo) {
+        return res
+            .status(400)
+            .json({ error: "Faltan datos (idComprobante, idTrabajo)" });
+    }
 
-  const { idComprobante, idTrabajo } = req.body;
+    const { idComprobante, idTrabajo } = req.body;
 
-  try {
-    const nuevoDetalle = await detalleSvc.crearDetalle(
-      idComprobante,
-      idTrabajo
-    );
-    return res.status(201).json(nuevoDetalle);
-  } catch (error) {
-    return next(error);
-  }
-};
+    try {
+        const comprobante = await comprobanteSvc.getComprobanteById(idComprobante);
+        if (comprobante.finalizado) {
+            return res
+                .status(400)
+                .json({ error: "No se pueden agregar detalles a un comprobante finalizado" });
+        }
+
+        const nuevoDetalle = await detalleSvc.crearDetalle(
+            idComprobante,
+            idTrabajo,
+        );
+        return res.status(201).json(nuevoDetalle);
+    } catch (error) {
+        return next(error);
+    }
+}; 
 
 export const GetDetalleByIdCabecera = async (req, res, next) => {
     const { idComprobanteCabecera } = req.params;

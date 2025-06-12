@@ -37,3 +37,14 @@ export const CrearComprobante = async (req, res, next) => {
         return next(error);
     }
 }; 
+
+export const FinalizarComprobante = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const comprobanteFinalizado = await comprobanteSvc.finalizarComprobante(id);
+        return res.json(comprobanteFinalizado);
+    } catch (error) {
+        return next(error);
+    }
+};
