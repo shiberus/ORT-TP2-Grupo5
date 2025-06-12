@@ -37,3 +37,19 @@ export const getComprobanteById = async (idComprobante) => {
     
     return comprobante;
 }; 
+
+export const finalizarComprobante = async (idComprobante) => {
+    const finalizado = await Comprobante.findByIdAndUpdate(idComprobante, { finalizado: true }, {
+        new: true,
+        runValidators: true,
+    }).catch((error) => {
+        console.error("Error: ", error);
+        throw new CustomError("Error al finalizar el comprobante", 500);
+    });
+
+    if (!finalizado) {
+        throw new CustomError("Comprobante no encontrado", 404);
+    }
+
+    return finalizado;
+};
