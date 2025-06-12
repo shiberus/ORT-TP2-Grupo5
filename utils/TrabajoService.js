@@ -41,8 +41,3 @@ export const updateTrabajo = async (id, data) => {
     return actualizado;
 };
 
-export const deleteTrabajo = async (id) => {
-    const eliminado = await Trabajo.findByIdAndDelete(id);
-    if (!eliminado) throw new CustomError("Trabajo no encontrado", 404);
-    return eliminado;
-};
