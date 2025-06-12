@@ -37,14 +37,6 @@ export const ActualizarTrabajo = async (req, res, next) => {
     }
 };
 
-export const EliminarTrabajo = async (req, res, next) => {
-    try {
-        await trabajoSvc.deleteTrabajo(req.params.id);
-        return res.json({ mensaje: "Trabajo eliminado correctamente" });
-    } catch (error) {
-        next(error);
-    }
-};
 
 export const AvanzarEstadoTrabajo = async (req, res, next) => {
     try {
@@ -65,3 +57,4 @@ export const AvanzarEstadoTrabajo = async (req, res, next) => {
         next(error);
     }
 };
+
