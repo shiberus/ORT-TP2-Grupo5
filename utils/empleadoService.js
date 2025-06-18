@@ -2,12 +2,26 @@ import Empleado from "../models/Empleado.js";
 import bcrypt from "bcryptjs";
 import ROLES from "../constants/roles.js";
 import CustomError from "./CustomError.js";
+import * as val from './Validador.js';
 import { uploadFile } from "./supabaseService.js";
 
-export const crearEmpleado = async (nombre, email, password, rol) => {
+const validarEmpleado = (nombre, email, password, rol) => {
+  if (!val.validarString(nombre, 3, 20)) {
+    throw new CustomError('El nombre debe tener entre 3 y 20 caracteres', 400);
+  }
+  if (!val.validarEmail(email)) {
+    throw new CustomError('El email ingresado es invalido', 400);
+  }
+  if (!val.validarPassword(password)) {
+    throw new CustomError('La contraseña debe tener entre 8 y 16 caracteres, y al menos un numero y una mayuscula');
+  }
   if (!ROLES[rol]) {
     throw new CustomError(`El rol '${rol}' es invalido`, 400);
   }
+};
+
+export const crearEmpleado = async (nombre, email, password, rol) => {
+  validarEmpleado(nombre, email, password, rol);
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const empleado = {
