@@ -24,6 +24,7 @@ export const crearEmpleado = async (nombre, email, password, rol) => {
   validarEmpleado(nombre, email, password, rol);
 
   const hashedPassword = await bcrypt.hash(password, 10);
+  
   const empleado = {
     nombre,
     email,
