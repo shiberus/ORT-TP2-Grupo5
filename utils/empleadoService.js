@@ -46,6 +46,13 @@ export const getEmpleados = async (query = {}) => {
   return empleados;
 };
 
+export const getEmpleadoById = async (empleadoId) => {
+  const empleado = await Empleado.findById(empleadoId).catch((error) => {
+    console.error("Error: ", error);
+  });
+  return empleado;
+};
+
 export const getEmpleadoByEmail = async (email) => {
   const empleado = await Empleado.findOne({ email }).catch((error) => {
     console.error("Error: ", error);
@@ -62,6 +69,16 @@ export const actualizarProfilePic = async (empleadoId, imagen) => {
   const empleado = await Empleado.findByIdAndUpdate(
     empleadoId,
     { profile_pic: imageUrl },
+    { new: true }
+  );
+
+  return empleado;
+};
+
+export const bajaEmpleado = async (empleadoId) => {
+  const empleado = await Empleado.findByIdAndUpdate(
+    empleadoId,
+    { activo: false },
     { new: true }
   );
 

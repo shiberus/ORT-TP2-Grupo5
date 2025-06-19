@@ -1,8 +1,18 @@
 import * as empleadoSvc from "../utils/empleadoService.js";
+import roles from "../constants/roles.js";
 
 export const GetEmpleados = async (req, res) => {
   const empleados = await empleadoSvc.getEmpleados();
   return res.json(empleados);
+};
+
+export const GetEmpleadoById = async (req, res, next) => {
+  try {
+    const empleado = await empleadoSvc.getEmpleadoById(req.params.id);
+    return res.json(empleado);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const CrearEmpleado = async (req, res, next) => {
@@ -52,6 +62,20 @@ export const ActualizarProfilePic = async (req, res, next) => {
       msg: "Imagen actualizada correctamente",
       alumno: empleadoActualizado,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const BajaEmpleado = async (req, res, next) => {
+  const { usuario } = req;
+  if (!usuario.rol === roles.ADMIN) {
+    return res.status(401).json({error: "No cuenta con los permisos para realizar esta acción"});
+  }
+
+  try {
+    const empleado = empleadoSvc.bajaEmpleado(req.params.id);
+    res.status(204).json(empleado);
   } catch (error) {
     next(error);
   }

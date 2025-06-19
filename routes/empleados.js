@@ -2,11 +2,14 @@ import express from "express";
 const router = express.Router();
 import { verificarToken } from "../middlewares/authMiddleware.js";
 import { allowUpload } from "../middlewares/uploadMiddleware.js";
+import { validateId } from "../middlewares/validateObjectId.js";
 
-import { CrearEmpleado, GetEmpleados, ActualizarProfilePic } from "../controllers/empleadosController.js";
+import { CrearEmpleado, GetEmpleados, GetEmpleadoById, ActualizarProfilePic, BajaEmpleado } from "../controllers/empleadosController.js";
 
 router.use(verificarToken);
 router.get("/", GetEmpleados);
+router.get("/:id", validateId, GetEmpleadoById);
+router.delete("/:id", validateId, BajaEmpleado);
 router.post("/", CrearEmpleado);
 router.put("/imagen", allowUpload.single('imagen'), ActualizarProfilePic);
 
