@@ -5,6 +5,8 @@ import empleadosRouter from "./empleados.js"
 import trabajosRouter from "./trabajos.js"
 import comprobantesRouter from "./comprobantes.js"
 import deteallesRouter from "./detalles.js"
+import equiposRouter from "./equipos.js"
+import clientesRouter from "./clientes.js"
 
 const router = express.Router();
 
@@ -14,5 +16,7 @@ router.use('/empleados', empleadosRouter);
 router.use('/trabajos', trabajosRouter)
 router.use('/comprobantes', comprobantesRouter);
 router.use('/detalles', deteallesRouter);
+router.use('/equipos', equiposRouter);
+router.use('/clientes', clientesRouter);
 
 export default router;
