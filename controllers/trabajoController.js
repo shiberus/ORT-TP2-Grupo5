@@ -38,23 +38,49 @@ export const ActualizarTrabajo = async (req, res, next) => {
 };
 
 
-export const AvanzarEstadoTrabajo = async (req, res, next) => {
+export const AsignarEmpleado = async (req, res, next) => {
     try {
-        const trabajo = await trabajoSvc.getTrabajoById(req.params.id);
-        const estadoActual = trabajo.estado;
-        const indiceActual = ESTADOS_TRABAJO.indexOf(estadoActual);
+        const { idEmpleado } = req.body;
+        const trabajoConEmpleado = await trabajoSvc.asignarEmpleado(req.params.id, idEmpleado);
         
-        if (indiceActual === ESTADOS_TRABAJO.length - 1) {
-            return res.status(400).json({ 
-                mensaje: "El trabajo ya está en su estado final" 
-            });
-        }
-        
-        const siguienteEstado = ESTADOS_TRABAJO[indiceActual + 1];
-        const actualizado = await trabajoSvc.updateTrabajo(req.params.id, { estado: siguienteEstado });
-        return res.json(actualizado);
+        return res.json(trabajoConEmpleado);
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const AsignarCosto = async (req, res, next) => {
+    try {
+        const { costo, descripcion} = req.body;
+        const trabajoCosto = await trabajoSvc.asignarCosto(req.params.id, costo, descripcion)
+
+        return res.json(trabajoCosto)
+
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const AsignarComponente = async (req, res, next) => {
+    try {
+        const { idComponente } = req.body;
+        const { id } = req.params;         
+
+        const trabajoActualizado = await trabajoSvc.asignarComponente(id, idComponente);
+
+        return res.json(trabajoActualizado);
+
+    } catch (error) {
+        next(error); 
+    }
+};
+
+export const FinalizarTrabajo = async (req, res, next) => {
+    try {
+        const trabajoFinalizado = await trabajoSvc.finalizarTrabajo(req.params.id);
+        return res.json(trabajoFinalizado);
     } catch (error) {
         next(error);
     }
 };
-
