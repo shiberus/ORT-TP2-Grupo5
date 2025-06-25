@@ -84,3 +84,40 @@ export const bajaEmpleado = async (empleadoId) => {
 
   return empleado;
 };
+
+export const actualizarEmpleado = async (empleadoId, actualizacion) => {
+  const { nombre, password } = actualizacion;
+
+  if (!nombre && !password) {
+    throw new CustomError('Debe enviar al menos uno de los siguientes campos para actualizar: nombre o password.', 422);
+  }
+
+  const datosAActualizar = {};
+
+  if (nombre !== undefined) {
+    if (!val.validarString(nombre, 3, 20)) {
+      throw new CustomError('El nombre debe tener entre 3 y 20 caracteres', 400);
+    }
+    datosAActualizar.nombre = nombre;
+  }
+
+  if (password !== undefined) {
+    if (!val.validarPassword(password)) {
+      throw new CustomError('La contraseña debe tener entre 8 y 16 caracteres, y al menos un número y una mayúscula', 400);
+    }
+    const hashedPassword = await bcrypt.hash(password, 10);
+    datosAActualizar.password = hashedPassword;
+  }
+
+  const empleadoActualizado = await Empleado.findByIdAndUpdate(
+    empleadoId,
+    { $set: datosAActualizar },
+    { new: true, runValidators: true }
+  );
+
+  if (!empleadoActualizado) {
+    throw new CustomError('Empleado no encontrado', 404);
+  }
+
+  return empleadoActualizado;
+};

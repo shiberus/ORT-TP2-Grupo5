@@ -70,12 +70,35 @@ export const ActualizarProfilePic = async (req, res, next) => {
 export const BajaEmpleado = async (req, res, next) => {
   const { usuario } = req;
   if (!usuario.rol === roles.ADMIN) {
-    return res.status(401).json({error: "No cuenta con los permisos para realizar esta acción"});
+    return res
+      .status(401)
+      .json({ error: "No cuenta con los permisos para realizar esta acción" });
   }
 
   try {
-    const empleado = empleadoSvc.bajaEmpleado(req.params.id);
+    const empleado = await empleadoSvc.bajaEmpleado(req.params.id);
     res.status(204).json(empleado);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const ActualizarEmpleado = async (req, res, next) => {
+  const { usuario } = req;
+  if (usuario.empleadoId !== req.params.id) {
+    return res
+      .status(401)
+      .json({ error: "No cuenta con los permisos para realizar esta acción" });
+  }
+
+  const { nombre, password } = req.body;
+
+  try {
+    const empleado = await empleadoSvc.actualizarEmpleado(req.params.id, {
+      nombre,
+      password,
+    });
+    res.json(empleado);
   } catch (error) {
     next(error);
   }

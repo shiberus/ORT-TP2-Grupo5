@@ -7,9 +7,13 @@ export const login = async (req, res) => {
     return res.status(400).json({ error: "Faltan datos (email, password)" });
   }
   const empleado = await getEmpleadoByEmail(req.body.email);
+  
+  if (!empleado?.activo) {
+    return res.status(401).json({ error: "Cuenta inhabilitada" });
+  }
+  
   const hashedPassword = empleado?.password || "";
   const comparada = await bcrypt.compare(req.body.password, hashedPassword);
-
   if (!comparada) {
     return res.status(401).json({ error: "Email o contraseña incorrecta" });
   }
