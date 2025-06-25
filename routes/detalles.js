@@ -9,11 +9,11 @@ import {
     GetDetalleWithTrabajoByIdCabecera
 } from "../controllers/detallesController.js";
 
+router.get("/comprobante/:idComprobanteCabecera", GetDetalleWithTrabajoByIdCabecera);
 router.use(verificarToken);
 
 router.get("/", GetDetalles);
 router.get("/:id", GetDetalleById); 
-router.get("/comprobante/:idComprobanteCabecera", GetDetalleWithTrabajoByIdCabecera);
 router.post("/", CrearDetalle); 
 
 export default router;

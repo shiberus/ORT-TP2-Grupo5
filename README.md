@@ -40,10 +40,12 @@ Esta es una API REST desarrollada con **Node.js + Express** que permite gestiona
     ```env
     MONGODB_URI=tu_cadena_de_conexion_mongodb
     JWT_SECRET=una_clave_secreta_segura
+    JWT_REFRESH_SECRET= otra_clave_secreta_segura
     SUPABASE_URL=https://tuproyecto.supabase.co
     SUPABASE_SECRET=tu_clave_service_role
     SUPABASE_BUCKET=nombre_del_bucket
     PORT= (opcional) puerto en que corre el servidor
+
     ```
 
 4. Inicia el servidor:
