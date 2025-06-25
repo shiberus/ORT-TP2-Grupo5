@@ -14,9 +14,9 @@ router.get('/', GetTrabajos)
 router.post('/crearTrabajo', CreateTrabajo)
 router.put("/:id", ActualizarTrabajo);
 router.put("/asignarTrabajo/:id", AsignarEmpleado);
-router.put("/asignarComponente/:id", AsignarComponente);
 router.put("/costo/:id", AsignarCosto);
-router.put("/:id", FinalizarTrabajo);
+router.put("/asignarComponente/:id", AsignarComponente);
+router.put("/finalizarTrabajo/:id", FinalizarTrabajo);
 
 
 

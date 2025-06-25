@@ -1,4 +1,5 @@
 import * as detalleSvc from "../utils/DetalleService.js";
+import * as comprobanteSvc from "../utils/ComprobanteService.js";
 
 export const GetDetalles = async (req, res) => {
   const detalles = await detalleSvc.getDetalles();
