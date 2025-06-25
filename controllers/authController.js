@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { getEmpleadoByEmail } from "../utils/empleadoService.js";
 import { generarAccessToken, generarRefreshToken } from "../utils/tokenService.js";
